@@ -14,11 +14,11 @@ class App extends Component {
   handleOnClickUsers() {
     this.props.store.dispatch({
       type: 'GET_COUNT_OF_USERS',
-    })
+    });
   }
 
   render() {
-    debugger;
+    // debugger;
     return (
       <div className="App">
           <button onClick={() => this.handleOnClickItems()}>
@@ -27,7 +27,7 @@ class App extends Component {
           <button onClick={() => this.handleOnClickUsers()}>
             Click to change user count
           </button>
-          <p> {this.props.items.length}</p>
+          <p>{this.props.items.length}</p>
       </div>
     );
   }
