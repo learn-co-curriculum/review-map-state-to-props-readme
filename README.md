@@ -130,9 +130,11 @@ Separation of concerns is the big win.  Take a look at the App component again:
 
 ```
 
-You will notice that if it wasn't for the dispatch method (and in a later lesson we will remove that as well), our component would have no knowledge of our store, and thus no knowledge of anything related to redux.  This means that if someone wanted to take the component and use a different backend, like say flux, it could.  It also means that because all of our redux is separated, that if we wanted to add in change our application to be mobile by using react native, we our redux logic would largely state the same.  So with this pattern, both the view and its state management system are properly separated, and only connected by that `connect` function.  
+You will notice that if it wasn't for the dispatch method (and in a later lesson we will remove that as well), our component would have no knowledge of our store, and thus no knowledge of anything related to redux.  This means that if someone wanted to take the component and use a different backend, like say flux, it could.  It also means that because all of our redux is separated, that if we wanted to add in change our application to be mobile by using react native, our redux logic would largely state the same.  So with this pattern, both the view and its state management system are properly separated, and only connected by that `connect` function.  
 
 
 ### Summary
 
 In this lesson we saw that the connect function is used for us to connect our redux part of the application to the react part of the application (we'll see even more of this later).  We also see that whatever function we pass as the first argument to that connect function is called each time there is a change of state, and has access to the entire store's state.  The connect function then takes the return value from the mapStateToProps function and adds that return value to the props of the component that is passed through in the last parentheses.  We call that component a connected component, because that component is connected to the store.  
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/review-map-state-to-props-readme'>Map State To Props Deep Dive Readme</a> on Learn.co and start learning to code for free.</p>
