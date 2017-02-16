@@ -90,13 +90,13 @@ render() {
   debugger;
   return (
     <div className="App">
-        <button onClick={() => this.handleOnClickItems()}>
-          Click to change items count
-          </button>
-        <button onClick={() => this.handleOnClickUsers()}>
-          Click to change user count
-        </button>
-        <p> {this.props.items.length}</p>
+      <button onClick={() => this.handleOnClickItems()}>
+        Click to change items count
+      </button>
+      <button onClick={() => this.handleOnClickUsers()}>
+        Click to change user count
+      </button>
+      <p> {this.props.items.length}</p>
     </div>
   );
 }
@@ -158,7 +158,7 @@ class App extends Component {
       type: 'GET_COUNT_OF_USERS',
     })
   }
-
+  
   render() {
     debugger;
     return (
@@ -184,7 +184,7 @@ export default connect(mapStateToProps)(App);
 
 ```
 
-You will notice that if it wasn't for the dispatch method (and in a later lesson we will remove that as well), our component would have no knowledge of our store, and thus no knowledge of anything related to __Redux__. This means that if someone wanted to take the component and use a different backend, like say flux, it could. It also means that because all of our __Redux__ is separated, that if we wanted to add in changes to our application to be mobile by using react native. Then our __Redux__ logic would largely state the same.  So with this pattern, both the view and its state management system are properly separated, and only connected by that __connect()__ function.  
+You will notice that if it wasn't for the dispatch method (and in a later lesson we will remove that as well), our component would have no knowledge of our store, and thus no knowledge of anything related to __Redux__. This means that if someone wanted to take the component and use a different backend, like say __Flux__, it could. It also means that because all of our __Redux__ is separated, that if we wanted to add in changes to our application to be mobile by using __React Native__. Then our __Redux__ logic would largely state the same. So with this pattern, both the view and its state management system are properly separated, and only connected by that __connect()__ function.  
 
 ### Summary
 
