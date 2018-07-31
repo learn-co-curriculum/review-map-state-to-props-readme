@@ -86,7 +86,7 @@ state of the store as its argument? Let's change our code to the following in
 
 const vanilla = (milkshake) => {
   debugger;
-  return { items: milksake.items }
+  return { items: milkshake.items }
 }
 
 export default connect(vanilla)(App);
