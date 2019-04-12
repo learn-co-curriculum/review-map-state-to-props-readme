@@ -98,7 +98,7 @@ click the button, and notice that no functionality changes: the vanilla function
 now is hit every time there is a change in state, and milkshake now represents
 our store's state. So in other words, whatever function we pass to the
 `connect()` function will be called each time the state changes, and the first
-argument to that function, whatever it's name, will be the state of the store.  
+argument to that function, whatever its name, will be the state of the store.  
 
 We can even shorten `mapStateToProps()` down to an anonymous arrow function and pass it directly into `connect()`:
 
@@ -113,7 +113,7 @@ the original set up.
 
 So in the previous section we saw that whatever function we pass to `connect()`
 is executed each time there is a change in state, and that the argument that
-function is executed with is the entire state of the store. Chaiging the
+function is executed with is the entire state of the store. Changing the
 function back to `mapStateToProps()`, let's pay special attention to the
 return value to that function:
 
@@ -196,16 +196,18 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(App);
 ```
 
-We understand that the `connect()`function calls the `mapStateToProps()` function
-each time there is a change in state, and that `mapStateToProps()` receives
-`state` as its first argument. We also know that `mapStateToProps()` can happily
-ignore the store's state and return whatever it likes. We also know that
-`connect()` takes whatever the return value is of the `mapStateToProps()`
-function and passes it to the component that is in those last set of parentheses
-(in this case, App). Because normally, what we are doing is taking a part of the
-store's state and porting it to become props of the relevant component, we say
-that we are taking part of the state, and mapping them as props to the
-component, thus the name __mapStateToProps__.
+We understand that the `connect()` function calls the `mapStateToProps()`
+function each time there is a change in state, and that `mapStateToProps()`
+receives `state` as its first argument.
+
+We also know that `mapStateToProps()` can happily ignore the store's state and
+return whatever it likes. We know that `connect()` takes whatever the
+return value is of the `mapStateToProps()` function and passes it to the
+component that is in those last set of parentheses (in this case, App).
+
+Because we are taking a part of the store's state and porting it to become props
+of the relevant component, we say that we are mapping it as props to the
+component, thus the name _mapStateToProps_.
 
 ### mapStateToProps, but Why?
 
@@ -270,7 +272,7 @@ we will remove that as well), our component would have no knowledge of our
 store, and thus no knowledge of anything related to __Redux__. This means that
 if someone wanted to take the component and use a different backend, like say
 __Flux__, it could. It also means that because all of our __Redux__ is
-separated, that if we wanted to add in changes to our application to be mobile
+separated, if we wanted to add in changes to our application to be mobile
 by using __React Native__. Then our __Redux__ logic would largely stay the
 same. So with this pattern, both the view and its state management system are
 properly separated, and only connected by that `connect()` function.  
