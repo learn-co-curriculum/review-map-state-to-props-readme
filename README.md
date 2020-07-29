@@ -113,9 +113,9 @@ the original set up.
 
 So in the previous section we saw that whatever function we pass to `connect()`
 is executed each time there is a change in state, and that the argument that
-function is executed with is the entire state of the store. Changing the
-function back to `mapStateToProps()`, let's pay special attention to the
-return value to that function:
+function is executed with is the entire state of the store. Let's change the
+function back to `mapStateToProps()`, and let's take a look at the return value
+to that function:
 
 ```javascript
 // ./src/App.js
