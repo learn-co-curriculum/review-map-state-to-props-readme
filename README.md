@@ -140,7 +140,7 @@ const mapStateToProps = (state) => {
 ```
 
 Let's also place a debugger inside of our App component, as the first line
-underneath the render function, this way we can examine the props of our app
+underneath the render function; this way we can examine the props of our app
 component.  
 
 ```javascript
@@ -168,8 +168,8 @@ render() {
 If you type in `this.props` while inside the render function, you will see that
 we now have this.props.orangePeel, which returns our array of numbers. So by
 changing the key to the return value in `mapStateToProps()` we changed the name
-of the prop in __App__. As a second step, let's change the value to orangePeel
-as well:
+of the prop in __App__. As a second step, let's change the value associated with
+the orangePeel key as well:
 
 ```javascript
 // ./src/App.js
@@ -181,9 +181,10 @@ const mapStateToProps = (state) => {
 ...
 ```
 
-Keeping our debugger in our __App__ component's render function, you can see
-that `this.props.orangePeel` now returns `['a', 'b', 'c']`. So now when we see
-the following code, perhaps we understand it a little better.
+When we hit the debugger in our __App__ component's render function, we can see
+that `this.props.orangePeel` now returns `['a', 'b', 'c']`, and no values are being
+returned from our state. So now when we see the following code, perhaps we understand 
+it a little better.
 
 ```javascript
 // ./src/App.js
@@ -203,7 +204,7 @@ receives `state` as its first argument.
 We also know that `mapStateToProps()` can happily ignore the store's state and
 return whatever it likes. We know that `connect()` takes whatever the
 return value is of the `mapStateToProps()` function and passes it to the
-component that is in those last set of parentheses (in this case, App).
+component that is in that last set of parentheses (in this case, App).
 
 Because we are taking a part of the store's state and porting it to become props
 of the relevant component, we say that we are mapping it as props to the
@@ -272,10 +273,10 @@ we will remove that as well), our component would have no knowledge of our
 store, and thus no knowledge of anything related to __Redux__. This means that
 if someone wanted to take the component and use a different backend, like say
 __Flux__, it could. It also means that because all of our __Redux__ is
-separated, if we wanted to add in changes to our application to be mobile
-by using __React Native__. Then our __Redux__ logic would largely stay the
-same. So with this pattern, both the view and its state management system are
-properly separated, and only connected by that `connect()` function.  
+separated, if we wanted to we could add in changes to our application to be 
+mobile by using __React Native__. Then our __Redux__ logic would largely stay 
+the same. So with this pattern, both the view and its state management system 
+are properly separated, and only connected by that `connect()` function.  
 
 ### Summary
 
@@ -286,6 +287,6 @@ as the first argument to that `connect()` function is called each time there is
 a change of state, and has access to the entire store's state. The `connect()`
 function then takes the return value from the `mapStateToProps()` function and
 adds that return value to the props of the component that is passed through in
-the last parentheses. We call that component a connected component, because that
-component is connected to the store.  
+the last parentheses. We call that component a connected component because it
+is connected to the store.  
 
