@@ -12,19 +12,18 @@ you a for your eyes only peek at the sordid underworld of `connect()` and
 
 Now, we made some changes to the codebase, mainly to help make this walkthrough a
 little easier to digest.  If you open up the file `shoppingListItemReducer` the
-first thing you'll see is that we now have two branches in our case statement:  
-our reducer now responds to the action types 'INCREASE_COUNT_OF_ITEMS', and
+first thing you'll see is that we now have two branches in our case statement;
+our reducer now responds to the action types 'INCREASE_COUNT_OF_ITEMS' and
 'INCREASE_COUNT_OF_USERS'.  We did this to make our state slightly more complex.
 You'll notice at the top of our __shoppingListItemReducer__ that we added a new
 key to our initial state called users, and populated it with an initial string
 to represent a user. You can also see that we removed the calls to console.log
-in the reducer, as we already have __Redux Devtools__ setup.  
+in the reducer, as we already have __Redux Devtools__ set up.  
 
 The next set of changes comes in `./src/App.js` where you can see that we
 have added a new button to increase the count of users. It does the same
 thing as our other button, but this time calls a callback which dispatches an
-action to change the part of the state related to users, instead of that related
-to items.
+action to change the part of the state related to users instead of items.
 
 Finally, at the bottom of the file, inside the `mapStateToProps()` function you 
 can see we placed a debugger. 
@@ -74,9 +73,8 @@ point. Say it with me one more time: the `mapStateToProps()` method is executed
 with each change to the store's state.
 
 Ok, now the next time we are in the debugger, let's notice that if you type the
-word state into the console while inside the `mapStateToProps()` method, that
-it is the entire state of the store and not just the part relevant to the 
-component.
+word state into the console while inside the `mapStateToProps()` method, we see
+the entire state of the store and not just the part relevant to the component.
 
 Next question: what is so special about this `mapStateToProps()` method that
 it is executed each time there is a change in state, and receives the entire
@@ -294,4 +292,3 @@ function then takes the return value from the `mapStateToProps()` function and
 adds that return value to the props of the component that is passed through in
 the last set of parentheses. We call that component a connected component 
 because it is connected to the store.  
-
