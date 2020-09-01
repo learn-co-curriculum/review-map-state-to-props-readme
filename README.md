@@ -272,7 +272,7 @@ You will notice that if it wasn't for the dispatch method (and in a later lesson
 we will remove that as well), our component would have no knowledge of our
 store, and thus no knowledge of anything related to __Redux__. This means that
 if someone wanted to take the component and use a different backend, like say
-__Flux__, it could. It also means that because all of our __Redux__ is
+__Flux__, they could. It also means that because all of our __Redux__ is
 separated, if we wanted to we could add in changes to our application to be 
 mobile by using __React Native__ -- our __Redux__ logic would largely stay 
 the same. So with this pattern, both the view and its state management system 
