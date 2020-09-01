@@ -8,33 +8,33 @@ code and poke around. In this lesson we will guide you through that, and give
 you a for your eyes only peek at the sordid underworld of `connect()` and
 `mapStateToProps()`.
 
-## Get situated with the codebase changes
+## Get situated with the codebase
 
-Now, we made some changes to the codebase, mainly to help make this walkthrough a
-little easier to digest.  If you open up the file `shoppingListItemReducer` the
-first thing you'll see is that we now have two branches in our case statement;
-our reducer now responds to the action types 'INCREASE_COUNT_OF_ITEMS' and
-'INCREASE_COUNT_OF_USERS'.  We did this to make our state slightly more complex.
-You'll notice at the top of our __shoppingListItemReducer__ that we added a new
-key to our initial state called users, and populated it with an initial string
-to represent a user. You can also see that we removed the calls to console.log
-in the reducer, as we already have __Redux Devtools__ set up.  
+For this walkthrough we will be using a simplified shopping list app as our 
+example. If you open up the `shoppingListItemReducer` file, you will see 
+that our reducer responds to two action types: 'INCREASE_COUNT_OF_ITEMS' and
+'INCREASE_COUNT_OF_USERS'. At the top of the reducer you can see that the 
+initial state includes two keys: the 'items' key points to an empty array, 
+while the 'users' key points to an array that contains a string representing 
+a user. 
 
-The next set of changes comes in `./src/App.js` where you can see that we
-have added a new button to increase the count of users. It does the same
-thing as our other button, but this time calls a callback which dispatches an
-action to change the part of the state related to users instead of items.
+Next, let's look at `./src/App.js`. Here you'll see that we are rendering two 
+buttons: one to increase the count of items and one to increase the count of 
+users. The two buttons do the same thing, but affect different parts of the 
+state. 
 
-Finally, at the bottom of the file, inside the `mapStateToProps()` function you 
-can see we placed a debugger. 
+Finally, note in the `mapStateToProps()` function that we are currently passing 
+only the items portion of state to our component, and, in our `render()` 
+function, the count of items is the only thing being rendered to the page. We 
+have done this intentionally to help explore how everything works. 
 
-Ok, now that you're a little better situated, let's start our exploration.
+Ok, now that you're a little better situated, let's start our exploration. To 
+help us, we've placed a debugger inside the `mapStateToProps()` function.
 
 ## Deeper explanation of mapStateToProps
 
-Remember that we encounter mapStateToProps when using the connect function.   In
+Remember that we encounter mapStateToProps when using the connect function. In
 the current codebase, we have the code:
-
 
 ```javascript
 // ./src/App.js
@@ -57,13 +57,12 @@ const mapStateToProps = (state) => {
 }
 ```
 
-Yes, we added a debugger to the body of our `mapStateToProps()` function. So
-now boot up the app and click on the two buttons. You will see that clicking on
-the Items Count button renders an update to our __App__ Component, while
+So now boot up the app and click on the two buttons. You will see that clicking 
+on the Items Count button renders an update to our __App__ Component, while
 clicking on the Users Count button does not. This makes sense: inside our App
 component we are only referencing the items count.  
 
-Ok, now let's open up our console so that we hit our debugger. If you click on
+ Ok, now let's open up our console so that we hit our debugger. If you click on
 each of the buttons, you'll see that our debugger gets hit with each action that
 we dispatch. So even though we are not updating our __App__ component with
 information about users, the `mapStateToProps()` function is executed when we
@@ -78,8 +77,9 @@ the entire state of the store and not just the part relevant to the component.
 
 Next question: what is so special about this `mapStateToProps()` method that
 it is executed each time there is a change in state, and receives the entire
-state of the store as its argument? Let's change our code to the following in
-`src/App.js`
+state of the store as its argument? In `src/App.js`, let's rename our 
+`mapStateToProps()` function to __vanilla()__, and rename the argument `state` 
+to `milkshake`:
 
 ```javascript
 // ./src/App.js
@@ -93,13 +93,11 @@ const vanilla = (milkshake) => {
 export default connect(vanilla)(App);
 ```
 
-Essentially, all we did was rename our `mapStateToProps()` function to
-__vanilla()__, and rename the argument `state` to `milkshake`. Refresh the app,
-click the button, and notice that no functionality changes: the vanilla function
-now is hit every time there is a change in state, and milkshake now represents
-our store's state. So in other words, whatever function we pass to the
-`connect()` function will be called each time the state changes, and the first
-argument to that function, whatever its name, will be the state of the store.  
+Refresh the app, click the button, and notice that no functionality changes: the vanilla function now is hit every time there is a change in state, and milkshake 
+now represents our store's state. So in other words, whatever function we pass 
+to the `connect()` function will be called each time the state changes, and the 
+first argument to that function, whatever its name, will be the state of the 
+store.  
 
 We can even shorten `mapStateToProps()` down to an anonymous arrow function and 
 pass it directly into `connect()`:
@@ -108,8 +106,8 @@ pass it directly into `connect()`:
 export default connect( state => ({ items: state.items }) )(App);
 ```
 
-If you've got a complicated amount of state you're mapping to props, stick with
-the original setup.
+However, if your state is much more complicated than the above, you're better 
+off sticking with the original setup.
 
 ## Deeper understanding of props
 
@@ -129,9 +127,8 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(App);
 ```
 
-This return value, is the value of the props that are added to the App
-component.  Let's see what happens if we change the key in the return value from
-items to orangePeel.
+This return value is what is added to the App component's props.  Let's see 
+what happens if we change the key in the return value from items to orangePeel.
 
 ```javascript
 // ./src/App.js
@@ -167,11 +164,11 @@ render() {
 ...
 ```
 
-If you type in `this.props` while inside the render function, you will see that
-we now have this.props.orangePeel, which returns our array of numbers. So by
-changing the key to the return value in `mapStateToProps()` we changed the name
-of the prop in __App__. As a second step, let's change the value associated with
-the orangePeel key as well:
+If you type `this.props` in the console while inside the render function, you 
+will see that we now have this.props.orangePeel, which returns our array of 
+numbers. So by changing the key to the return value in `mapStateToProps()` we 
+changed the name of the prop in __App__. As a second step, let's change the 
+value associated with the orangePeel key as well:
 
 ```javascript
 // ./src/App.js
