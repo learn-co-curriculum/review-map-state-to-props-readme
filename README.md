@@ -1,8 +1,10 @@
-### Introduction
+# Map State to Props Continued
 
-When we last left off, we successfully used our __createStore()__ method, and
+## Introduction
+
+When we last left off, we successfully used our **createStore()** method, and
 were able to have our application re-render through the rather confusing
-`connect()` method and __Provider__ component. Whenever something in
+`connect()` method and **Provider** component. Whenever something in
 JavaScript is confusing, it is generally helpful to place some debuggers in the
 code and poke around. In this lesson we will guide you through that, and give
 you a for your eyes only peek at the sordid underworld of `connect()` and
@@ -36,18 +38,18 @@ help us, we've placed a debugger inside the `mapStateToProps()` function.
 Remember that we encounter mapStateToProps when using the connect function. In
 the current codebase, we have the code:
 
-```javascript
+```jsx
 // ./src/App.js
 ...
 
 connect(mapStateToProps)(App)
 ```
 
-Meaning that we want to connect our __App__ component to a slice of the store's
-state specified in `mapStateToProps()`. Currently our `mapStateToProps()`
-looks like the following:
+Meaning that we want to connect our **App** component to a slice of the store's
+state specified in `mapStateToProps()`. Currently our `mapStateToProps()` looks
+like the following:
 
-```javascript
+```jsx
 // ./src/App.js
 ...
 
@@ -58,13 +60,13 @@ const mapStateToProps = (state) => {
 ```
 
 So now boot up the app and click on the two buttons. You will see that clicking 
-on the Items Count button renders an update to our __App__ Component, while
+on the Items Count button renders an update to our **App** Component, while
 clicking on the Users Count button does not. This makes sense: inside our App
 component we are only referencing the items count.  
 
  Ok, now let's open up our console so that we hit our debugger. If you click on
 each of the buttons, you'll see that our debugger gets hit with each action that
-we dispatch. So even though we are not updating our __App__ component with
+we dispatch. So even though we are not updating our **App** component with
 information about users, the `mapStateToProps()` function is executed when we
 click the Users Count button. Now we can see that the `mapStateToProps()` 
 function is executed with each change to the store's state. That's an important 
@@ -78,10 +80,11 @@ the entire state of the store and not just the part relevant to the component.
 Next question: what is so special about this `mapStateToProps()` method that
 it is executed each time there is a change in state, and receives the entire
 state of the store as its argument? In `src/App.js`, let's rename our 
-`mapStateToProps()` function to __vanilla()__, and rename the argument `state` 
+`mapStateToProps()` function to **vanilla()**, and rename the argument `state` 
 to `milkshake`:
 
-```javascript
+
+```jsx
 // ./src/App.js
 ...
 
@@ -93,7 +96,8 @@ const vanilla = (milkshake) => {
 export default connect(vanilla)(App);
 ```
 
-Refresh the app, click the button, and notice that no functionality changes: the vanilla function now is hit every time there is a change in state, and milkshake 
+Refresh the app, click the button, and notice that no functionality changes: the
+vanilla function now is hit every time there is a change in state, and milkshake 
 now represents our store's state. So in other words, whatever function we pass 
 to the `connect()` function will be called each time the state changes, and the 
 first argument to that function, whatever its name, will be the state of the 
@@ -103,7 +107,7 @@ We can even shorten `mapStateToProps()` down to an anonymous arrow function and
 pass it directly into `connect()`:
 
 ```js
-export default connect( state => ({ items: state.items }) )(App);
+export default connect((state) => ({ items: state.items }))(App);
 ```
 
 However, if your state is much more complicated than the above, you're better 
@@ -117,7 +121,8 @@ function is executed with is the entire state of the store. Let's change the
 function back to `mapStateToProps()`, and let's take a look at the return value
 to that function:
 
-```javascript
+
+```jsx
 // ./src/App.js
 ...
 const mapStateToProps = (state) => {
@@ -130,7 +135,7 @@ export default connect(mapStateToProps)(App);
 This return value is what is added to the App component's props.  Let's see 
 what happens if we change the key in the return value from items to orangePeel.
 
-```javascript
+```jsx
 // ./src/App.js
 ...
 const mapStateToProps = (state) => {
@@ -142,7 +147,8 @@ Let's also place a debugger inside of our App component, as the first line
 underneath the render function; this way we can examine the props of our app
 component.  
 
-```javascript
+
+```jsx
 // ./src/App.js
 ...
 
@@ -167,10 +173,11 @@ render() {
 If you type `this.props` in the console while inside the render function, you 
 will see that we now have this.props.orangePeel, which returns our array of 
 numbers. So by changing the key to the return value in `mapStateToProps()` we 
-changed the name of the prop in __App__. As a second step, let's change the 
+changed the name of the prop in **App**. As a second step, let's change the 
 value associated with the orangePeel key as well:
 
-```javascript
+
+```jsx
 // ./src/App.js
 ...
 
@@ -180,12 +187,12 @@ const mapStateToProps = (state) => {
 ...
 ```
 
-When we hit the debugger in our __App__ component's render function, we can see
+When we hit the debugger in our **App** component's render function, we can see
 that `this.props.orangePeel` now returns `['a', 'b', 'c']` and we aren't accessing
 state at all. So now when we see the following code, perhaps we understand it a 
 little better.
 
-```javascript
+```jsx
 // ./src/App.js
 ...
 
@@ -212,34 +219,33 @@ component; thus the name _mapStateToProps_.
 
 ### mapStateToProps, but Why?
 
-By now, you may be thinking, why would __Redux__ choose this whole
+By now, you may be thinking, why would **Redux** choose this whole
 `mapStateToProps()` technique. Didn't we live a simpler and happier life when we
 just passed our store down through each component? Well, maybe, but we do get
 some benefits by using this pattern. We'll talk more about the benefits of the
 `connect()` function later, but for now we can discuss the biggest benefit,
 separation of concerns.
 
-Separation of concerns is the big win.  Take a look at the __App__ component again:
+Separation of concerns is the big win. Take a look at the **App** component
+again:
 
-```javascript
+```jsx
 // ./src/App.js
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import './App.css';
-
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import "./App.css";
 
 class App extends Component {
-
   handleOnClickItems() {
     this.props.dispatch({
-      type: 'INCREASE_COUNT_OF_ITEMS',
+      type: "INCREASE_COUNT_OF_ITEMS",
     });
   }
 
   handleOnClickUsers() {
     this.props.dispatch({
-      type: 'INCREASE_COUNT_OF_USERS',
+      type: "INCREASE_COUNT_OF_USERS",
     })
   }
 
@@ -247,13 +253,13 @@ class App extends Component {
     debugger;
     return (
       <div className="App">
-          <button onClick={() => this.handleOnClickItems()}>
-            Click to change items count
-            </button>
-          <button onClick={() => this.handleOnClickUsers()}>
-            Click to change user count
-          </button>
-          <p> {this.props.items.length}</p>
+        <button onClick={() => this.handleOnClickItems()}>
+          Click to change items count
+        </button>
+        <button onClick={() => this.handleOnClickUsers()}>
+          Click to change user count
+        </button>
+        <p> {this.props.items.length}</p>
       </div>
     );
   }
@@ -261,27 +267,26 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   // debugger;
-  return { items: state.items }
-}
+  return { items: state.items };
+};
 
 export default connect(mapStateToProps)(App);
-
 ```
 
 You will notice that if it wasn't for the dispatch method (and in a later lesson
 we will remove that as well), our component would have no knowledge of our
-store, and thus no knowledge of anything related to __Redux__. This means that
+store, and thus no knowledge of anything related to **Redux**. This means that
 if someone wanted to take the component and use a different backend, like say
-__Flux__, they could. It also means that because all of our __Redux__ is
+**Flux**, they could. It also means that because all of our **Redux** is
 separated, if we wanted to we could add in changes to our application to be 
-mobile by using __React Native__ -- our __Redux__ logic would largely stay 
+mobile by using **React Native** -- our **Redux** logic would largely stay 
 the same. So with this pattern, both the view and its state management system 
 are properly separated, and only connected by that `connect()` function.  
 
 ### Summary
 
 In this lesson we saw that the `connect()` function is used for us to connect
-the __Redux__ part of our application to the __React__ part of the application
+the **Redux** part of the application to the **React** part of the application
 (we'll see even more of this later). We also see that whatever function we pass
 as the first argument to that `connect()` function is called each time there is
 a change of state, and has access to the store's entire state. The `connect()`
