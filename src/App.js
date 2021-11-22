@@ -5,13 +5,13 @@ import './App.css';
 
 class App extends Component {
 
-  handleOnClickItems() {
+  handleOnClickItems = () => {
     this.props.dispatch({
       type: 'GET_COUNT_OF_ITEMS',
     });
   }
 
-  handleOnClickUsers() {
+  handleOnClickUsers = () => {
     this.props.dispatch({
       type: 'GET_COUNT_OF_USERS',
     });
@@ -21,10 +21,10 @@ class App extends Component {
     // debugger;
     return (
       <div className="App">
-          <button onClick={() => this.handleOnClickItems()}>
+          <button onClick={this.handleOnClickItems}>
             Click to change items count
             </button>
-          <button onClick={() => this.handleOnClickUsers()}>
+          <button onClick={this.handleOnClickUsers}>
             Click to change user count
           </button>
           <p>{this.props.items.length}</p>
